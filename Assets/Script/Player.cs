@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -18,7 +12,7 @@ public class Player : MonoBehaviour
 
     private void PlayerInput()
     {
-        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"))
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             PlayerMove();
         }
@@ -26,13 +20,13 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
-        if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButton("Horizontal"))
         {
-            transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"),0));
+            transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal")*Time.deltaTime,0));
         }
-        if (Input.GetButtonDown("Vertical"))
+        if (Input.GetButton("Vertical"))
         {
-            transform.Translate(new Vector2(0, Input.GetAxisRaw("Vertical")));
+            transform.Translate(new Vector2(0, Input.GetAxisRaw("Vertical")* Time.deltaTime));
             Debug.Log("³¡");
         }
         
