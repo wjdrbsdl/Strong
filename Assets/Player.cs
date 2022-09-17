@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Vertical"))
         {
             transform.Translate(new Vector2(0, Input.GetAxisRaw("Vertical")));
+            Debug.Log("³¡");
         }
+        
     }
 }
