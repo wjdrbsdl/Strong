@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
         if (Input.GetButton("Vertical"))
         {
             transform.Translate(new Vector2(0, Input.GetAxisRaw("Vertical")* Time.deltaTime));
-            Debug.Log("³¡");
         }
         
     }
