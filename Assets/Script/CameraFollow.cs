@@ -8,6 +8,8 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        transform.position = m_player.transform.position;
+        Vector3 pos = m_player.transform.position;
+        pos.z = -10f;
+        transform.position = pos;
     }
 }
