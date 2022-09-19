@@ -13,7 +13,7 @@ public class MapBlock : MonoBehaviour
     public void InitialSet(BlockType _type)
     {
         SetMapType(_type);
-        PaintLand();
+        TestSelectColor();
         DivideLandAndMakeTile();
     }
 
@@ -33,8 +33,9 @@ public class MapBlock : MonoBehaviour
         m_blockType = _type;
     }
 
-    private void PaintLand()
+    private void TestSelectColor()
     {
+        //타일의 구별을 위해 임시 사용 이후 타일의 타입에 따라 생성 예정.
         SpriteRenderer render = GetComponent<SpriteRenderer>();
         Color a = render.color;
         if (m_blockType == BlockType.약초터)
