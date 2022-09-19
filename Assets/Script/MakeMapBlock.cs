@@ -31,7 +31,7 @@ public class MakeMapBlock : MonoBehaviour
             {
                 int mapType = Random.Range(0, m_mapTypeCount);
                 m_mapNum[length, width] = (MapType)mapType;
-                Debug.Log("지도 " + length + " " + width + "위치에 지형 블록 생성 해당 블록의 속성은 "+(MapType)mapType);
+                
 
             }
         }
@@ -45,9 +45,10 @@ public class MakeMapBlock : MonoBehaviour
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
-                GameObject mapBlock = Instantiate(m_mapBlock);
+                MapBlock mapBlock = Instantiate(m_mapBlock).GetComponent<MapBlock>();
                 Vector2 place = new Vector2(width * xScale, length * yScale);
                 mapBlock.transform.position = place;
+                mapBlock.SetMapType(m_mapNum[length, width]);
             }
         }
     }

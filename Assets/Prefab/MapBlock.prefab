@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4728635056856363074}
   - component: {fileID: 4383150520118288101}
-  - component: {fileID: 5983824086534372621}
+  - component: {fileID: 4546381626781581740}
   m_Layer: 0
   m_Name: MapBlock
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5983824086534372621
+--- !u!114 &4546381626781581740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,6 +92,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7567786216092490202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d45b13f9594e5047a33623466315c24, type: 3}
+  m_Script: {fileID: 11500000, guid: 73b60e916bb02ec4faceb950d4586cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class MapBlock : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private MapType m_mapType;
+
+    private void Start()
     {
-        
+        SpriteRenderer render = GetComponent<SpriteRenderer>();
+        Color a = render.color;
+        if (m_mapType == MapType.약초터)
+            a = new Color(0, 255, 255);
+        else if (m_mapType == MapType.함정)
+            a = new Color(255, 0, 255);
+        else
+            a = new Color(255, 255, 0);
+
+        render.color = a;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetMapType(MapType _type)
     {
-        
+        m_mapType = _type;
     }
 }
