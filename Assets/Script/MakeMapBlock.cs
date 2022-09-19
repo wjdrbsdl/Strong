@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MapType
+public enum BlockType
 {
     약초터, 함정, 이벤트
 }
+
+public enum TileType
+{
+    녹지, 늪지, 물가, 사막
+}
+
 public class MakeMapBlock : MonoBehaviour
 {
-    const int MAP_LENGTH_SIZE = 5;
+    const int MAP_HEIGHT_SIZE = 5;
     const int MAP_WIDTH_SIZE = 5;
     public const int MAP_BLOCK_SIZE = 12;
     private MapBlock[,] m_mapNum = null;
@@ -19,21 +25,21 @@ public class MakeMapBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_mapTypeCount = System.Enum.GetValues(typeof(MapType)).Length;
+        m_mapTypeCount = System.Enum.GetValues(typeof(BlockType)).Length;
         MakeBlock();
         ReplaceBlock();
     }
 
     private void MakeBlock()
     {
-        m_mapNum = new MapBlock[MAP_WIDTH_SIZE, MAP_LENGTH_SIZE];
-        for (int length = 0; length < MAP_LENGTH_SIZE; length++)
+        m_mapNum = new MapBlock[MAP_WIDTH_SIZE, MAP_HEIGHT_SIZE];
+        for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
         {
             for(int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
                 int mapType = Random.Range(0, m_mapTypeCount);
                 MapBlock mapBlock = Instantiate(m_mapBlock).GetComponent<MapBlock>();
-                mapBlock.SetMapType((MapType)mapType);
+                mapBlock.SetMapType((BlockType)mapType);
                 m_mapNum[length, width] = mapBlock;
             }
         }
@@ -41,7 +47,7 @@ public class MakeMapBlock : MonoBehaviour
 
     private void ReplaceBlock()
     {
-        for (int length = 0; length < MAP_LENGTH_SIZE; length++)
+        for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
