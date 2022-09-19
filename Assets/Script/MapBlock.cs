@@ -12,6 +12,7 @@ public class MapBlock : MonoBehaviour
     #region PublicMethod
     public void InitialSet(BlockType _type)
     {
+        m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
         SetMapType(_type);
         TestSelectColor();
         DivideLandAndMakeTile();

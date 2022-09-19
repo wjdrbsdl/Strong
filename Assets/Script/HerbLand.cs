@@ -9,9 +9,7 @@ public enum HerbGrade
 }
 public class HerbLand : MonoBehaviour
 {
-    
-  
-    private HerbGrade m_herbGrade = HerbGrade.Nomal;
+   private HerbGrade m_herbGrade = HerbGrade.Nomal;
 
    public void DetermineGrade(HerbGrade _grade)
     {
