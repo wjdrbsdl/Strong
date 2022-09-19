@@ -6,7 +6,7 @@ public enum MapType
 {
     약초터, 함정, 이벤트
 }
-public class MakeMap : MonoBehaviour
+public class MakeMapBlock : MonoBehaviour
 {
     const int MAP_LENGTH_SIZE = 5;
     const int MAP_WIDTH_SIZE = 5;
@@ -18,11 +18,11 @@ public class MakeMap : MonoBehaviour
     void Start()
     {
         m_mapTypeCount = System.Enum.GetValues(typeof(MapType)).Length;
-        MakeBaseLand();
-        ReplaceBaseLand();
+        MakeBlock();
+        ReplaceBlock();
     }
 
-    private void MakeBaseLand()
+    private void MakeBlock()
     {
         m_mapNum = new MapType[MAP_WIDTH_SIZE, MAP_LENGTH_SIZE];
         for (int length = 0; length < MAP_LENGTH_SIZE; length++)
@@ -37,7 +37,7 @@ public class MakeMap : MonoBehaviour
         }
     }
 
-    private void ReplaceBaseLand()
+    private void ReplaceBlock()
     {
         float xScale = m_mapBlock.transform.localScale.x;
         float yScale = m_mapBlock.transform.localScale.y;
