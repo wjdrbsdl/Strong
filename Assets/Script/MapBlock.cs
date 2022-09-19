@@ -7,6 +7,7 @@ public class MapBlock : MonoBehaviour
     private BlockType m_mapType;
     [SerializeField] private GameObject m_mapTile;
     private GameObject[,] m_tiles;
+    private int m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
 
     private void Start()
     {
@@ -17,6 +18,15 @@ public class MapBlock : MonoBehaviour
     public void SetMapType(BlockType _type)
     {
         m_mapType = _type;
+    }
+
+    public void MakeExit(GameObject _exitGO)
+    {
+        int xRan = Random.Range(0, m_blockSize);
+        int yRan = Random.Range(0, m_blockSize);
+        GameObject exit = Instantiate(_exitGO);
+        exit.transform.parent = transform;
+        exit.transform.localPosition = new Vector2(xRan, yRan);
     }
 
     #region PrivateMethod
@@ -36,15 +46,14 @@ public class MapBlock : MonoBehaviour
 
     private void DivideLandAndMakeTile()
     {
-        int blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
-        m_tiles = new GameObject[blockSize, blockSize];
-        Vector2 offset = new Vector2((-blockSize / 2), blockSize / 2);
+        m_tiles = new GameObject[m_blockSize, m_blockSize];
+        Vector2 offset = new Vector2((-m_blockSize / 2), m_blockSize / 2);
         offset.x += 0.5f;
         offset.y -= 0.5f;
 
-        for(int height = 0; height < blockSize; height++)
+        for(int height = 0; height < m_blockSize; height++)
         {
-            for (int width = 0; width < blockSize; width++)
+            for (int width = 0; width < m_blockSize; width++)
             {
                 GameObject tile = Instantiate(m_mapTile);
                 tile.transform.parent = transform;

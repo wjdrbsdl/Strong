@@ -17,10 +17,11 @@ public class MakeMapBlock : MonoBehaviour
     const int MAP_HEIGHT_SIZE = 5;
     const int MAP_WIDTH_SIZE = 5;
     public const int MAP_BLOCK_SIZE = 12;
-    private MapBlock[,] m_mapNum = null;
+    private MapBlock[,] m_mapBlocks = null;
     private int m_mapTypeCount;
-    [SerializeField] private GameObject m_mapBlock;
+    [SerializeField] private GameObject m_mapBlockGO;
     [SerializeField] private GameObject m_mapBox;
+    [SerializeField] private GameObject m_exitGO;
 
     // Start is called before the first frame update
     void Start()
@@ -28,19 +29,21 @@ public class MakeMapBlock : MonoBehaviour
         m_mapTypeCount = System.Enum.GetValues(typeof(BlockType)).Length;
         MakeBlock();
         ReplaceBlock();
+        OrderMakeExit();
     }
 
+    #region PrivateMethod
     private void MakeBlock()
     {
-        m_mapNum = new MapBlock[MAP_WIDTH_SIZE, MAP_HEIGHT_SIZE];
+        m_mapBlocks = new MapBlock[MAP_WIDTH_SIZE, MAP_HEIGHT_SIZE];
         for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
         {
             for(int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
                 int mapType = Random.Range(0, m_mapTypeCount);
-                MapBlock mapBlock = Instantiate(m_mapBlock).GetComponent<MapBlock>();
+                MapBlock mapBlock = Instantiate(m_mapBlockGO).GetComponent<MapBlock>();
                 mapBlock.SetMapType((BlockType)mapType);
-                m_mapNum[length, width] = mapBlock;
+                m_mapBlocks[length, width] = mapBlock;
             }
         }
     }
@@ -52,10 +55,19 @@ public class MakeMapBlock : MonoBehaviour
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
                 Vector2 place = new Vector2(width * MAP_BLOCK_SIZE, -length * MAP_BLOCK_SIZE);
-                m_mapNum[length, width].transform.position = place;
+                m_mapBlocks[length, width].transform.position = place;
                 
             }
         }
     }
-    
+
+    private void OrderMakeExit()
+    {
+        int xRan = Random.Range(0, MAP_WIDTH_SIZE);
+        int yRan = Random.Range(0, MAP_HEIGHT_SIZE);
+
+        m_mapBlocks[yRan, xRan].MakeExit(m_exitGO);
+    }
+    #endregion
+
 }
