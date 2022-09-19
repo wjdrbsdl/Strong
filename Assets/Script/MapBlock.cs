@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class MapBlock : MonoBehaviour
 {
-    private BlockType m_mapType;
+    private BlockType m_blockType;
     [SerializeField] private GameObject m_mapTile;
     private GameObject[,] m_tiles;
     private int m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
 
-    private void Start()
+    #region PublicMethod
+    public void InitialSet(BlockType _type)
     {
+        SetMapType(_type);
         PaintLand();
         DivideLandAndMakeTile();
-    }
-
-    public void SetMapType(BlockType _type)
-    {
-        m_mapType = _type;
     }
 
     public void MakeExit(GameObject _exitGO)
@@ -26,17 +23,23 @@ public class MapBlock : MonoBehaviour
         int yRan = Random.Range(0, m_blockSize);
         GameObject exit = Instantiate(_exitGO);
         exit.transform.parent = transform;
-        exit.transform.localPosition = new Vector2(xRan, yRan);
+        exit.transform.localPosition = m_tiles[yRan, xRan].transform.localPosition;
     }
+    #endregion
 
     #region PrivateMethod
+    private void SetMapType(BlockType _type)
+    {
+        m_blockType = _type;
+    }
+
     private void PaintLand()
     {
         SpriteRenderer render = GetComponent<SpriteRenderer>();
         Color a = render.color;
-        if (m_mapType == BlockType.약초터)
+        if (m_blockType == BlockType.약초터)
             a = new Color(0, 255, 255);
-        else if (m_mapType == BlockType.함정)
+        else if (m_blockType == BlockType.함정)
             a = new Color(255, 0, 255);
         else
             a = new Color(255, 255, 0);

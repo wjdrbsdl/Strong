@@ -18,7 +18,6 @@ public class MakeMapBlock : MonoBehaviour
     const int MAP_WIDTH_SIZE = 5;
     public const int MAP_BLOCK_SIZE = 12;
     private MapBlock[,] m_mapBlocks = null;
-    private int m_mapTypeCount;
     [SerializeField] private GameObject m_mapBlockGO;
     [SerializeField] private GameObject m_mapBox;
     [SerializeField] private GameObject m_exitGO;
@@ -26,24 +25,26 @@ public class MakeMapBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_mapTypeCount = System.Enum.GetValues(typeof(BlockType)).Length;
+      
         MakeBlock();
         ReplaceBlock();
-        OrderMakeExit();
+        OrderExit();
     }
 
     #region PrivateMethod
     private void MakeBlock()
     {
+        int mapTypeCount = System.Enum.GetValues(typeof(BlockType)).Length;
         m_mapBlocks = new MapBlock[MAP_WIDTH_SIZE, MAP_HEIGHT_SIZE];
         for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
         {
             for(int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
-                int mapType = Random.Range(0, m_mapTypeCount);
+                int mapType = Random.Range(0, mapTypeCount);
                 MapBlock mapBlock = Instantiate(m_mapBlockGO).GetComponent<MapBlock>();
-                mapBlock.SetMapType((BlockType)mapType);
+                mapBlock.InitialSet((BlockType)mapType);
                 m_mapBlocks[length, width] = mapBlock;
+             
             }
         }
     }
@@ -61,7 +62,7 @@ public class MakeMapBlock : MonoBehaviour
         }
     }
 
-    private void OrderMakeExit()
+    private void OrderExit()
     {
         int xRan = Random.Range(0, MAP_WIDTH_SIZE);
         int yRan = Random.Range(0, MAP_HEIGHT_SIZE);
