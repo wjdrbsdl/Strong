@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
             PlayerMove();
         }
     }
-
+    
     private void PlayerMove()
     {
         if (Input.GetButton("Horizontal"))
