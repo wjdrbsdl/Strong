@@ -41,7 +41,7 @@ public class MakeMapBlock : MonoBehaviour
     private void ReplaceBlock()
     {
         float xScale = m_mapBlock.transform.localScale.x;
-        float yScale = m_mapBlock.transform.localScale.y;
+        float yScale = -1 * m_mapBlock.transform.localScale.y;
         for (int length = 0; length < MAP_LENGTH_SIZE; length++)
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
