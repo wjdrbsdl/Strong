@@ -10,9 +10,10 @@ public class MakeMapBlock : MonoBehaviour
 {
     const int MAP_LENGTH_SIZE = 5;
     const int MAP_WIDTH_SIZE = 5;
-    private MapType[,] m_mapNum = null;
+    private MapBlock[,] m_mapNum = null;
     private int m_mapTypeCount;
-    [SerializeField] private GameObject m_mapBlock; 
+    [SerializeField] private GameObject m_mapBlock;
+    [SerializeField] private GameObject m_mapBox;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +25,15 @@ public class MakeMapBlock : MonoBehaviour
 
     private void MakeBlock()
     {
-        m_mapNum = new MapType[MAP_WIDTH_SIZE, MAP_LENGTH_SIZE];
+        m_mapNum = new MapBlock[MAP_WIDTH_SIZE, MAP_LENGTH_SIZE];
         for (int length = 0; length < MAP_LENGTH_SIZE; length++)
         {
             for(int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
                 int mapType = Random.Range(0, m_mapTypeCount);
-                m_mapNum[length, width] = (MapType)mapType;
-                
-
+                MapBlock mapBlock = Instantiate(m_mapBlock).GetComponent<MapBlock>();
+                mapBlock.SetMapType((MapType)mapType);
+                m_mapNum[length, width] = mapBlock;
             }
         }
     }
@@ -45,10 +46,9 @@ public class MakeMapBlock : MonoBehaviour
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
-                MapBlock mapBlock = Instantiate(m_mapBlock).GetComponent<MapBlock>();
                 Vector2 place = new Vector2(width * xScale, length * yScale);
-                mapBlock.transform.position = place;
-                mapBlock.SetMapType(m_mapNum[length, width]);
+                m_mapNum[length, width].transform.position = place;
+                
             }
         }
     }
