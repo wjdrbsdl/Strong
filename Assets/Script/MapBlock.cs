@@ -5,8 +5,21 @@ using UnityEngine;
 public class MapBlock : MonoBehaviour
 {
     private MapType m_mapType;
+    [SerializeField] private GameObject m_mapTile;
 
     private void Start()
+    {
+        PaintLand();
+        DivideLand();
+    }
+
+    public void SetMapType(MapType _type)
+    {
+        m_mapType = _type;
+    }
+
+    #region PrivateMethod
+    private void PaintLand()
     {
         SpriteRenderer render = GetComponent<SpriteRenderer>();
         Color a = render.color;
@@ -20,8 +33,24 @@ public class MapBlock : MonoBehaviour
         render.color = a;
     }
 
-    public void SetMapType(MapType _type)
+    private void DivideLand()
     {
-        m_mapType = _type;
+        int size = MakeMapBlock.MAP_BLOCK_SIZE;
+        Vector2 offset = new Vector2((-size / 2), size / 2);
+        offset.x += 0.5f;
+        offset.y -= 0.5f;
+
+        for(int length = 0; length < size; length++)
+        {
+            for (int width = 0; width < size; width++)
+            {
+                GameObject tile = Instantiate(m_mapTile);
+                tile.transform.parent = transform;
+                Vector2 pos = new Vector2(offset.x + width, offset.y - length);
+                tile.transform.localPosition = pos;
+                tile.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+            }
+        }
     }
+    #endregion
 }

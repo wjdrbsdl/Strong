@@ -162,7 +162,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274940865}
-  - component: {fileID: 274940864}
   - component: {fileID: 274940866}
   m_Layer: 0
   m_Name: Manager
@@ -171,19 +170,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &274940864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274940863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 178c77428bf9abe418f38f1fa866ed0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_herbLandObj: {fileID: 8452064802019943860, guid: 55658c386d6c3de4da25d0cf7c724a3c, type: 3}
 --- !u!4 &274940865
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +404,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497248926}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

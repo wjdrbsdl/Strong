@@ -10,6 +10,7 @@ public class MakeMapBlock : MonoBehaviour
 {
     const int MAP_LENGTH_SIZE = 5;
     const int MAP_WIDTH_SIZE = 5;
+    public const int MAP_BLOCK_SIZE = 12;
     private MapBlock[,] m_mapNum = null;
     private int m_mapTypeCount;
     [SerializeField] private GameObject m_mapBlock;
@@ -40,13 +41,11 @@ public class MakeMapBlock : MonoBehaviour
 
     private void ReplaceBlock()
     {
-        float xScale = m_mapBlock.transform.localScale.x;
-        float yScale = -1 * m_mapBlock.transform.localScale.y;
         for (int length = 0; length < MAP_LENGTH_SIZE; length++)
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
-                Vector2 place = new Vector2(width * xScale, length * yScale);
+                Vector2 place = new Vector2(width * MAP_BLOCK_SIZE, -length * MAP_BLOCK_SIZE);
                 m_mapNum[length, width].transform.position = place;
                 
             }
