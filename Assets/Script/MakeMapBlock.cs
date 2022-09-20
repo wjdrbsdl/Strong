@@ -14,9 +14,9 @@ public enum TileType
 
 public class MakeMapBlock : MonoBehaviour
 {
-    const int MAP_HEIGHT_SIZE = 5;
-    const int MAP_WIDTH_SIZE = 5;
-    public const int MAP_BLOCK_SIZE = 12;
+    const int MAP_HEIGHT_SIZE = 7;
+    const int MAP_WIDTH_SIZE = 7;
+    public const int MAP_BLOCK_SIZE = 60;
     private MapBlock[,] m_mapBlocks = null;
     [SerializeField] private GameObject m_mapBlockGO;
     [SerializeField] private GameObject m_mapBox;
@@ -41,6 +41,7 @@ public class MakeMapBlock : MonoBehaviour
             {
                 int mapType = Random.Range(0, mapTypeCount);
                 MapBlock mapBlock = Instantiate(m_mapBlockGO).GetComponent<MapBlock>();
+                mapBlock.transform.parent = m_mapBox.transform;
                 mapBlock.InitialSet((BlockType)mapType);
                 m_mapBlocks[length, width] = mapBlock;
              
@@ -50,12 +51,17 @@ public class MakeMapBlock : MonoBehaviour
 
     private void ReplaceBlock()
     {
+        Vector2 offset = new Vector2(-(MAP_BLOCK_SIZE*MAP_WIDTH_SIZE / 2), MAP_BLOCK_SIZE * MAP_HEIGHT_SIZE / 2);
+
+        offset.x += MAP_BLOCK_SIZE / 2;
+        offset.y -= MAP_BLOCK_SIZE / 2;
+            
         for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
         {
             for (int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
-                Vector2 place = new Vector2(width * MAP_BLOCK_SIZE, -length * MAP_BLOCK_SIZE);
-                m_mapBlocks[length, width].transform.position = place;
+                Vector2 place = new Vector2(offset.x + width * MAP_BLOCK_SIZE, offset.y - length * MAP_BLOCK_SIZE);
+                m_mapBlocks[length, width].transform.localPosition = place;
                 
             }
         }
