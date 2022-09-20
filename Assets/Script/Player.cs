@@ -31,4 +31,10 @@ public class Player : MonoBehaviour
         }
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        InteractObj interTarget = collision.GetComponent<InteractObj>();
+        interTarget.Interact();
+    }
 }
