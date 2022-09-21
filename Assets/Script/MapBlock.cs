@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MapBlock : MonoBehaviour
 {
-    private BlockType m_blockType;
     [SerializeField] private GameObject m_mapTile;
-    [SerializeField] private Sprite[] m_sprites;
+    [SerializeField] private Sprite[] m_tileSprites;
+    private BlockType m_blockType;
     private GameObject[,] m_tiles;
     private int m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
 
@@ -38,8 +38,8 @@ public class MapBlock : MonoBehaviour
     {
         m_tiles = new GameObject[m_blockSize, m_blockSize];
         Vector2 offset = new Vector2((-m_blockSize / 2), m_blockSize / 2);
-        offset.x += 0.5f;
-        offset.y -= 0.5f;
+        offset.x += m_mapTile.transform.localScale.x / 2;
+        offset.y -= m_mapTile.transform.localScale.y / 2;
 
         for(int height = 0; height < m_blockSize; height++)
         {
@@ -61,17 +61,17 @@ public class MapBlock : MonoBehaviour
         if (m_blockType == BlockType.약초터)
         {
             int spriteNum = Random.Range(0, 3);
-            _render.sprite = m_sprites[spriteNum];
+            _render.sprite = m_tileSprites[spriteNum];
         }
         else if (m_blockType == BlockType.함정)
         {
             int spriteNum = Random.Range(3, 6);
-            _render.sprite = m_sprites[spriteNum];
+            _render.sprite = m_tileSprites[spriteNum];
         }
         else if (m_blockType == BlockType.이벤트)
         {
             int spriteNum = Random.Range(6, 9);
-            _render.sprite = m_sprites[spriteNum];
+            _render.sprite = m_tileSprites[spriteNum];
         }
 
     }

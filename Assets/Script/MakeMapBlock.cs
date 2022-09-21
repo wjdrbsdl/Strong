@@ -19,15 +19,15 @@ public class MakeMapBlock : MonoBehaviour
     public const int MAP_BLOCK_SIZE = 60;
     private MapBlock[,] m_mapBlocks = null;
     [SerializeField] private GameObject m_mapBlockGO;
-    [SerializeField] private GameObject m_mapBox;
+    [SerializeField] private GameObject m_mapBoxGO;
     [SerializeField] private GameObject m_exitGO;
 
-    // Start is called before the first frame update
     void Start()
     {
         MakeBlock();
         ReplaceBlock();
         OrderExit();
+
     }
 
     #region PrivateMethod
@@ -35,15 +35,15 @@ public class MakeMapBlock : MonoBehaviour
     {
         int mapTypeCount = System.Enum.GetValues(typeof(BlockType)).Length;
         m_mapBlocks = new MapBlock[MAP_WIDTH_SIZE, MAP_HEIGHT_SIZE];
-        for (int length = 0; length < MAP_HEIGHT_SIZE; length++)
+        for (int height = 0; height < MAP_HEIGHT_SIZE; height++)
         {
             for(int width = 0; width < MAP_WIDTH_SIZE; width++)
             {
                 int mapType = Random.Range(0, mapTypeCount);
                 MapBlock mapBlock = Instantiate(m_mapBlockGO).GetComponent<MapBlock>();
-                mapBlock.transform.parent = m_mapBox.transform;
+                mapBlock.transform.parent = m_mapBoxGO.transform;
                 mapBlock.InitialSet((BlockType)mapType);
-                m_mapBlocks[length, width] = mapBlock;
+                m_mapBlocks[height, width] = mapBlock;
              
             }
         }

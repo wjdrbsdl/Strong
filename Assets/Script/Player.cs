@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +9,16 @@ public class Player : MonoBehaviour
     private float m_speed=5f;
     private float m_actionSpeed = 1f;
     private float m_curActionTime = 0f;
-    private bool m_doneAction = false;
-    private delegate void DeleDoAction();
-    DeleDoAction actionHandler;
+    private bool m_isReadyToAct = false;
+    private delegate void DelegateAction();
+    DelegateAction m_actionHandler;
     // Update is called once per frame
     void Update()
     {
         PlayerInput();
 
         UpdateActionTime();
-        if (m_doneAction)
+        if (m_isReadyToAct)
             DoAction();
     }
 
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void UpdateActionTime()
     {
-        if (actionHandler == null)
+        if (m_actionHandler == null)
             return;
 
         if (m_curActionTime > 2f)
@@ -57,26 +57,44 @@ public class Player : MonoBehaviour
 
         m_curActionTime += Time.deltaTime * m_actionSpeed;
         if (m_curActionTime > 2f)
-            m_doneAction = true;
+            m_isReadyToAct = true;
 
     }
 
     private void FindHerb()
     {
         m_curActionTime = 0f;
-        actionHandler = FindHerbAction;
+        int ranAction = Random.Range(0, 3);
+        if (ranAction == 0)
+            m_actionHandler = FindHerbAction;
+        else if (ranAction == 1)
+            m_actionHandler = CutHerbAction;
+        else if (ranAction == 2)
+            m_actionHandler = MakeHerbAction;
     }
 
     private void FindHerbAction()
     {
         Debug.Log("약초 찾기 운행");
+        
+    }
+
+    private void CutHerbAction()
+    {
+        Debug.Log("약초 자르기");
+    }
+
+    private void MakeHerbAction()
+    {
+        Debug.Log("약초 만들기");
     }
 
     private void DoAction()
     {
-        actionHandler();
+        m_actionHandler();
         m_curActionTime = 0;
-        actionHandler = null;
+        m_actionHandler = null;
+        m_isReadyToAct = false;
     }
 
 

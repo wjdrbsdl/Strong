@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mapBlockGO: {fileID: 7567786216092490202, guid: ce2891ae4c49e864cb0455c588f0d3d0, type: 3}
-  m_mapBox: {fileID: 47002281}
+  m_mapBoxGO: {fileID: 47002281}
   m_exitGO: {fileID: 3257862789760135623, guid: ce93556a5765d5f4e855d58513b28f95, type: 3}
 --- !u!1 &870205146
 GameObject:
