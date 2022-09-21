@@ -71,8 +71,8 @@ public class MakeMapBlock : MonoBehaviour
     {
         int xRan = Random.Range(0, MAP_WIDTH_SIZE);
         int yRan = Random.Range(0, MAP_HEIGHT_SIZE);
-
-        m_mapBlocks[yRan, xRan].MakeExit(m_exitGO);
+        MapBlock randomBlock = m_mapBlocks[yRan, xRan];
+        randomBlock.MakeExit(m_exitGO);
     }
     #endregion
 

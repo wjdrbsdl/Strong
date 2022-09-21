@@ -34,8 +34,6 @@ public class MapBlock : MonoBehaviour
         m_blockType = _type;
     }
 
-   
-
     private void DivideLandAndMakeTile()
     {
         m_tiles = new GameObject[m_blockSize, m_blockSize];
@@ -53,12 +51,12 @@ public class MapBlock : MonoBehaviour
                 tile.transform.localPosition = pos;
                 m_tiles[height, width] = tile;
                 SpriteRenderer tileSprite = tile.GetComponent<SpriteRenderer>();
-                TestSelectTile(tileSprite);
+                TestPatinTile(tileSprite);
             }
         }
     }
 
-    private void TestSelectTile(SpriteRenderer _render)
+    private void TestPatinTile(SpriteRenderer _render)
     {
         if (m_blockType == BlockType.æ‡√ ≈Õ)
         {
