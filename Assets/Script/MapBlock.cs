@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MapBlock : MonoBehaviour
 {
-    private BlockType m_blockType;
     [SerializeField] private GameObject m_mapTile;
+    [SerializeField] private Sprite[] m_tileSprites;
+    private BlockType m_blockType;
     private GameObject[,] m_tiles;
     private int m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
 
@@ -14,7 +15,6 @@ public class MapBlock : MonoBehaviour
     {
         m_blockSize = MakeMapBlock.MAP_BLOCK_SIZE;
         SetMapType(_type);
-        TestSelectColor();
         DivideLandAndMakeTile();
     }
 
@@ -34,27 +34,12 @@ public class MapBlock : MonoBehaviour
         m_blockType = _type;
     }
 
-    private void TestSelectColor()
-    {
-        //타일의 구별을 위해 임시 사용 이후 타일의 타입에 따라 생성 예정.
-        SpriteRenderer render = GetComponent<SpriteRenderer>();
-        Color a = render.color;
-        if (m_blockType == BlockType.약초터)
-            a = new Color(0, 255, 255);
-        else if (m_blockType == BlockType.함정)
-            a = new Color(255, 0, 255);
-        else
-            a = new Color(255, 255, 0);
-
-        render.color = a;
-    }
-
     private void DivideLandAndMakeTile()
     {
         m_tiles = new GameObject[m_blockSize, m_blockSize];
         Vector2 offset = new Vector2((-m_blockSize / 2), m_blockSize / 2);
-        offset.x += 0.5f;
-        offset.y -= 0.5f;
+        offset.x += m_mapTile.transform.localScale.x / 2;
+        offset.y -= m_mapTile.transform.localScale.y / 2;
 
         for(int height = 0; height < m_blockSize; height++)
         {
@@ -64,10 +49,31 @@ public class MapBlock : MonoBehaviour
                 tile.transform.parent = transform;
                 Vector2 pos = new Vector2(offset.x + width, offset.y - height);
                 tile.transform.localPosition = pos;
-                tile.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
                 m_tiles[height, width] = tile;
+                SpriteRenderer tileSprite = tile.GetComponent<SpriteRenderer>();
+                TestPatinTile(tileSprite);
             }
         }
+    }
+
+    private void TestPatinTile(SpriteRenderer _render)
+    {
+        if (m_blockType == BlockType.약초터)
+        {
+            int spriteNum = Random.Range(0, 3);
+            _render.sprite = m_tileSprites[spriteNum];
+        }
+        else if (m_blockType == BlockType.함정)
+        {
+            int spriteNum = Random.Range(3, 6);
+            _render.sprite = m_tileSprites[spriteNum];
+        }
+        else if (m_blockType == BlockType.이벤트)
+        {
+            int spriteNum = Random.Range(6, 9);
+            _render.sprite = m_tileSprites[spriteNum];
+        }
+
     }
     #endregion
 }
